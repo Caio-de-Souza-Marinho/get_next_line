@@ -14,20 +14,24 @@
 
 char	*get_next_line(int fd)
 {
-/*
-buffer - place where the read function stores the bytes it read.
-stash - static variable that keeps its value between function calls
-line - value to return
 
+/* buffer - place where the read function stores the bytes it read. */
+	char	*buffer;
+/* stash - static variable that keeps its value between function calls */
+	static char	*stash;
+/* line - value to return */
+	char	*line;
 
-use read() to read the file descriptor passed as parameter and
-put buffer in the stash
-	if there is a '\n' in the stash
-		extract the line until the '\n'
-		clean stash
-		return the line
-	else
-		keep reading the file
-		append buffer to the stash 
-*/
+/* use read() to read the file descriptor passed as parameter and*/
+	int	read_return;
+	read_return = read(fd, buffer, BUFFER_SIZE;
+/* put buffer in the stash */
+	/* if there is a '\n' in the stash */
+		/* extract the line until the '\n' */
+		/* clean stash */
+		/* return the line */
+	/* else */
+		/* keep reading the file */
+		/* append buffer to the stash */
+	return (line);
 }
