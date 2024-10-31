@@ -24,8 +24,9 @@ char	*get_next_line(int fd)
 
 /* use read() to read the file descriptor passed as parameter and*/
 	int	read_return;
-	read_return = read(fd, buffer, BUFFER_SIZE;
+	read_return = read(fd, buffer, BUFFER_SIZE);
 /* put buffer in the stash */
+	stash = ft_strdup(buffer);
 	/* if there is a '\n' in the stash */
 		/* extract the line until the '\n' */
 		/* clean stash */
