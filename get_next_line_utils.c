@@ -12,7 +12,6 @@
 
 #include "get_next_line.h"
 
-
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 size_t	ft_strlen(const char *s);
