@@ -1,2 +1,2 @@
-Hello_Dolly.\n
+Hello_Dolly.
 Goodbye.
