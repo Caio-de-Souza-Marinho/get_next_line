@@ -49,10 +49,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = fill_line(fd, stash, buffer);
-	if (line == NULL)
-		return (NULL);
 	free(buffer);
 	buffer = NULL;
+	if (line == NULL)
+		return (NULL);
 	stash = set_line(line);
 	return (line);
 }
@@ -94,7 +94,7 @@ static char	*set_line(char *line)
 	i = 0;
 	while (line[i] != '\n' && line[i] != '\0')
 		i++;
-	if (line[i] == 0 || line[1] == 0)
+	if (line[i] == 0 || line[1] == '\0')
 		return (NULL);
 	stash = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (*stash == 0)
