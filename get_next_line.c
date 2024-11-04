@@ -12,96 +12,102 @@
 
 #include "get_next_line.h"
 
-/* buffer - place where the read function stores the bytes it read. */
-/* stash - static variable that keeps its value between function calls */
-/* line - value to return */
-
-/* use read() to read the file descriptor passed as parameter and*/
-/* put buffer in the stash */
-	/* if there is a '\n' in the stash */
-		/* extract the line until the '\n' */
-		/* clean stash */
-		/* return the line */
-	/* else */
-		/* keep reading the file */
-		/* append buffer to the stash */
-
-#include "get_next_line.h"
-
-static char	*fill_line(int fd, char *stash, char *buffer);
-static char	*set_line(char *line);
+void	create_list(t_list **list, int fd);
+void	append(t_list **list, char *buf);
+char	*set_line(t_list *list);
+void	clean_list(t_list **list);
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
-	char		*buffer;
-	char		*line;
+	static t_list	*list = NULL;
+	char			*next_line;
 
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (buffer == NULL)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0))
-	{
-		free(stash);
-		free(buffer);
-		stash = NULL;
-		buffer = NULL;
+	create_list(&list, fd);
+	if (list == NULL)
 		return (NULL);
-	}
-	line = fill_line(fd, stash, buffer);
-	if (line == NULL)
+	next_line = set_line(list);
+	if (next_line == NULL)
 		return (NULL);
-	free(buffer);
-	buffer = NULL;
-	stash = set_line(line);
-	return (line);
+	clean_list(&list);
+	return (next_line);
 }
 
-static char	*fill_line(int fd, char *stash, char *buffer)
+void	create_list(t_list **list, int fd)
 {
-	char	*tmp;
-	int		read_return;
+	int		char_read;	
+	char	*buf;
 
-	read_return = 1;
-	while (read_return > 0)
+	while (!found_newline(*list))
 	{
-		read_return = read(fd, buffer, BUFFER_SIZE);
-		if (read_return == -1)
+		buf = malloc(BUFFER_SIZE + 1);
+		if (NULL == buf)
+			return ;
+		char_read = read(fd, buf, BUFFER_SIZE);
+		if (!char_read)
 		{
-			free(stash);
-			return (NULL);
+			free(buf);
+			return ;
 		}
-		else if (read_return == 0)
-			break ;
-		buffer[read_return] = '\0';
-		if (stash == NULL)
-			stash = ft_strdup("");
-		tmp = stash;
-		stash = ft_strjoin(tmp, buffer);
-		free(tmp);
-		tmp = NULL;
-		if (ft_strchr(buffer, '\n'))
-			break ;
+		buf[char_read] = '\0';
+		append(list, buf);
 	}
-	return (stash);
 }
 
-static char	*set_line(char *line)
+void	append(t_list **list, char *buf)
 {
-	char	*stash;
-	int		i;
+	t_list	*new_node;
+	t_list	*last_node;
 
-	i = 0;
-	while (line[i] != '\n' && line[i] != '\0')
-		i++;
-	if (line[i] == 0 || line[1] == 0)
+	last_node = find_last_node(*list);
+	new_node = malloc(sizeof(t_list));
+	if (NULL == new_node)
+		return ;
+	if (NULL == last_node)
+		*list = new_node;
+	else
+		last_node->next = new_node;
+	new_node->str_buf = buf;
+	new_node->next = NULL;
+}
+
+char	*set_line(t_list *list)
+{
+	int		str_len;
+	char	*next_str;
+
+	if (NULL == list)
 		return (NULL);
-	stash = ft_substr(line, i + 1, ft_strlen(line) - i);
-	if (*stash == 0)
-	{
-		free(stash);
-		stash = NULL;
-	}
-	line[i + 1] = '\0';
-	return (stash);
+	str_len = len_until_newline(list);
+	next_str = malloc(str_len + 1);
+	if (NULL == next_str)
+		return (NULL);
+	copy_str(list, next_str);
+	return (next_str);
+}
+
+void	clean_list(t_list **list)
+{
+	t_list	*last_node;
+	t_list	*clean_node;
+	int		i;
+	int		k;
+	char	*buf;
+
+	buf = malloc(BUFFER_SIZE + 1);
+	clean_node = malloc(sizeof(t_list));
+	if (NULL == buf || NULL == clean_node)
+		return ;
+	last_node = find_last_node(*list);
+	i = 0;
+	k = 0;
+	while (last_node->str_buf[i] && last_node->str_buf[i] != '\n')
+		++i;
+	while (last_node->str_buf[i] && last_node->str_buf[++i])
+		buf[k++] = last_node->str_buf[i];
+	buf[k] = '\0';
+	clean_node->str_buf = buf;
+	clean_node->next = NULL;
+	dealloc(list, clean_node, buf);
 }

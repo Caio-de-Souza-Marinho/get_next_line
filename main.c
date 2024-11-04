@@ -25,7 +25,7 @@ int	main(void)
 	fd2 = open("test2.txt", O_RDONLY);
 	if (fd1 == -1 || fd2 == -1)
 	{
-		printf("file descriptor fucked");
+		printf("can't open file descriptor");
 		return (1);
 	}
 	while ((line = get_next_line(fd1)) != NULL )

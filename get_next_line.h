@@ -12,18 +12,30 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 
-char	*get_next_line(int fd);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s);
-size_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+typedef struct s_list
+{
+	char			*str_buf;
+	struct s_list	*next;
+}				t_list;
+
+char		*get_next_line(int fd);
+void		create_list(t_list **list, int fd);
+int			found_newline(t_list *list);
+void		append(t_list **list, char *buf);
+t_list		*find_last_node(t_list *list);
+char		*set_line(t_list *list);
+int			len_until_newline(t_list *list);
+void		copy_str(t_list *list, char *str);
+void		clean_list(t_list **list);
+void		dealloc(t_list **list, t_list *clean_node, char *buf);
 
 #endif
