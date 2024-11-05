@@ -42,7 +42,7 @@ void	create_list(t_list **list, int fd)
 	while (!found_newline(*list))
 	{
 		buf = malloc(BUFFER_SIZE + 1);
-		if (NULL == buf)
+		if (buf == NULL)
 			return ;
 		char_read = read(fd, buf, BUFFER_SIZE);
 		if (!char_read)
@@ -62,9 +62,9 @@ void	append(t_list **list, char *buf)
 
 	last_node = find_last_node(*list);
 	new_node = malloc(sizeof(t_list));
-	if (NULL == new_node)
+	if (new_node == NULL)
 		return ;
-	if (NULL == last_node)
+	if (last_node == NULL)
 		*list = new_node;
 	else
 		last_node->next = new_node;
@@ -77,11 +77,11 @@ char	*set_line(t_list *list)
 	int		str_len;
 	char	*next_str;
 
-	if (NULL == list)
+	if (list == NULL)
 		return (NULL);
 	str_len = len_until_newline(list);
 	next_str = malloc(str_len + 1);
-	if (NULL == next_str)
+	if (next_str == NULL)
 		return (NULL);
 	copy_str(list, next_str);
 	return (next_str);
@@ -97,7 +97,7 @@ void	clean_list(t_list **list)
 
 	buf = malloc(BUFFER_SIZE + 1);
 	clean_node = malloc(sizeof(t_list));
-	if (NULL == buf || NULL == clean_node)
+	if (buf == NULL || clean_node == NULL)
 		return ;
 	last_node = find_last_node(*list);
 	i = 0;
