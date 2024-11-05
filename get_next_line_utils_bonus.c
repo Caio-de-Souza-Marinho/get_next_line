@@ -25,7 +25,7 @@ int	found_newline(t_list *list)
 		{
 			if (list->str_buf[i] == '\n')
 				return (1);
-			++i;
+			i++;
 		}
 		list = list->next;
 	}
@@ -82,11 +82,11 @@ int	len_until_newline(t_list *list)
 		{
 			if (list->str_buf[i] == '\n')
 			{
-				++len;
+				len++;
 				return (len);
 			}
-			++i;
-			++len;
+			i++;
+			len++;
 		}
 		list = list->next;
 	}

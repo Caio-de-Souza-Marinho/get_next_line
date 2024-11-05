@@ -103,8 +103,8 @@ void	clean_list(t_list **list)
 	i = 0;
 	k = 0;
 	while (last_node->str_buf[i] && last_node->str_buf[i] != '\n')
-		++i;
-	while (last_node->str_buf[i] && last_node->str_buf[++i])
+		i++;
+	while (last_node->str_buf[i] && last_node->str_buf[i++])
 		buf[k++] = last_node->str_buf[i];
 	buf[k] = '\0';
 	clean_node->str_buf = buf;
