@@ -17,17 +17,15 @@
 
 int	main(void)
 {
-	int		fd1;
-	int		fd2;
+	int	fd1;
+	int	fd2;
 	char	*line;
 
-	fd1 = open("test1.txt", O_RDONLY);
-	fd2 = open("test2.txt", O_RDONLY);
-	if (fd1 == -1 || fd2 == -1)
-	{
-		printf("can't open file descriptor");
-		return (1);
-	}
+	fd1 = open("test_files/big_line_no_nl.txt", O_RDONLY);
+	fd2 = open("test_files/big_line_with_nl", O_RDONLY);
+	printf("fd1 = %d\n", fd1);
+	printf("fd2 = %d\n", fd2);
+
 	while ((line = get_next_line(fd1)) != NULL )
 	{
 		printf("%s", line);
