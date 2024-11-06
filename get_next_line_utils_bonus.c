@@ -97,8 +97,6 @@ void	dealloc(t_list **list, t_list *clean_node, char *buf)
 {
 	t_list	*tmp;
 
-	if (*list == NULL)
-		return ;
 	while (*list)
 	{
 		tmp = (*list)->next;
@@ -107,11 +105,12 @@ void	dealloc(t_list **list, t_list *clean_node, char *buf)
 		*list = tmp;
 	}
 	*list = NULL;
-	if (clean_node->str_buf[0])
+	if (clean_node && clean_node->str_buf[0] != '\0')
 		*list = clean_node;
 	else
 	{
 		free(buf);
-		free(clean_node);
+		if (clean_node)
+			free(clean_node);
 	}
 }

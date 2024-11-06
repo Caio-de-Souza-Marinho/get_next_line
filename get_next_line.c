@@ -23,14 +23,22 @@ char	*get_next_line(int fd)
 	char			*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
+	{
+		dealloc(&list, NULL, NULL);
 		return (NULL);
+	}
 	create_list(&list, fd);
 	if (list == NULL)
 		return (NULL);
 	next_line = set_line(list);
 	if (next_line == NULL)
+	{
+		dealloc(&list, NULL, NULL);
 		return (NULL);
+	}
 	clean_list(&list);
+	if (*next_line == '\0')
+		return (free(next_line), NULL);
 	return (next_line);
 }
 
