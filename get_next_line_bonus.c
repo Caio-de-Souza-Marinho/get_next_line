@@ -104,6 +104,8 @@ void	clean_list(t_list **list)
 	int		k;
 	char	*buf;
 
+	if (list == NULL)
+		return ;
 	buf = malloc(BUFFER_SIZE + 1);
 	clean_node = malloc(sizeof(t_list));
 	if (buf == NULL || clean_node == NULL)
