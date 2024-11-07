@@ -6,12 +6,12 @@
 /*   By: caide-so <caide-so@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 20:45:27 by caide-so          #+#    #+#             */
-/*   Updated: 2024/11/06 18:25:34 by caide-so         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:45:33 by caide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -30,7 +30,7 @@ typedef struct s_list
 char		*get_next_line(int fd);
 void		create_list(t_list **list, int fd);
 int			found_newline(t_list *list);
-void		append(t_list **list, char *buf);
+void		append(t_list **list, char *buf, int fd);
 t_list		*find_last_node(t_list *list);
 char		*set_line(t_list *list);
 int			len_until_newline(t_list *list);

@@ -1,1 +1,6 @@
 main.out
+gnlTester/
+gnl-station-tester/
+*.out
+*.swp
+*.tmp

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	found_newline(t_list *list)
 {
@@ -41,32 +41,6 @@ t_list	*find_last_node(t_list *list)
 	return (list);
 }
 
-int	len_until_newline(t_list *list)
-{
-	int	i;
-	int	len;
-
-	if (list == NULL)
-		return (0);
-	len = 0;
-	while (list)
-	{
-		i = 0;
-		while (list->str_buf[i])
-		{
-			if (list->str_buf[i] == '\n')
-			{
-				len++;
-				return (len);
-			}
-			i++;
-			len++;
-		}
-		list = list->next;
-	}
-	return (len);
-}
-
 void	copy_str(t_list *list, char *str)
 {
 	int	i;
@@ -91,6 +65,32 @@ void	copy_str(t_list *list, char *str)
 		list = list->next;
 	}
 	str[k] = '\0';
+}
+
+int	len_until_newline(t_list *list)
+{
+	int	i;
+	int	len;
+
+	if (list == NULL)
+		return (0);
+	len = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->str_buf[i])
+		{
+			if (list->str_buf[i] == '\n')
+			{
+				len++;
+				return (len);
+			}
+			i++;
+			len++;
+		}
+		list = list->next;
+	}
+	return (len);
 }
 
 void	dealloc(t_list **list, t_list *clean_node, char *buf)
