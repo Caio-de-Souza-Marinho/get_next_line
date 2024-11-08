@@ -5,8 +5,8 @@
 
 int	main(void)
 {
-	int	fd1 = open("test_files/read_error.txt", O_RDONLY);
-	int	fd2 = open("test_files/big_line_with_nl.txt", O_RDONLY);
+	int	fd1 = open("tests/test_files/test1.txt", O_RDONLY);
+	int	fd2 = open("tests/test_files/test2.txt", O_RDONLY);
 	int	fdi = 3;
 	int	i = 0;
 	char	*line;

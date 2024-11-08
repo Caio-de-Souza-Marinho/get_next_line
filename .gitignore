@@ -4,3 +4,4 @@ gnl-station-tester/
 *.out
 *.swp
 *.tmp
+*.tests
