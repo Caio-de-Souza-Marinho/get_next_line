@@ -5,9 +5,9 @@
 
 int	main(void)
 {
-	int	fd1 = open("test_files/test1.txt", O_RDONLY);
-	int	fd2 = open("test_files/test2.txt", O_RDONLY);
-	int	fd3 = open("test_files/test3.txt", O_RDONLY);
+	int	fd1 = open("tests/test_files/test1.txt", O_RDONLY);
+	int	fd2 = open("tests/test_files/test2.txt", O_RDONLY);
+	int	fd3 = open("tests/test_files/test3.txt", O_RDONLY);
 	int	fd1i = 1;
 	int	fd2i = 1;
 	int	fd3i = 1;
