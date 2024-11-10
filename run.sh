@@ -31,37 +31,26 @@ make BUFFER_SIZE=1000000 && \
 echo -e "${GREEN}Running Valgrind tests...${NO_COLOR}"
 make leakfull && \
 
-# echo -e "\n${GREEN}Compiling the bonus test program...${NO_COLOR}"
-# make clean && \
-# make bonus && \
-# 
-# echo -e "${GREEN}Running Valgrind bonus tests...${NO_COLOR}"
-# make leakfullbonus && \
+echo -e "\n${GREEN}Compiling the ${PURPLE}bonus ${GREEN}test program with ${YELLOW}BUFFER_SIZE = 1${NO_COLOR}"
+make clean && \
+make bonus && \
 
-# echo -e "${GREEN}Compiling gnl-main.c...${NO_COLOR}"
-# cd ../ && \
-# cc -Wall -Wextra -Werror gnl-main.c src/get_next_line.c src/get_next_line_utils.c -o main.out
+echo -e "${GREEN}Running Valgrind bonus tests...${NO_COLOR}"
+make leakfullbonus && \
 
-# Check if gnl-main compilation was successful
-# if [ $? -eq 0 ]; then
-    # echo -e "\n${GREEN}Running gnl-main.c function...${NO_COLOR}"
-    # ./main.out
-# else
-    # echo -e "${NO_COLOR}Compilation of gnl-main.c failed.${NO_COLOR}"
-    # exit 1
-# fi
+echo -e "\n${GREEN}Compiling the ${PURPLE}bonus ${GREEN}test program with ${YELLOW}BUFFER_SIZE = 10${NO_COLOR}"
+make clean && \
+make BUFFER_SIZE=10 && \
 
-# echo -e "\n${GREEN}Compiling gnl-bonus-main.c...${NO_COLOR}"
-# cc -Wall -Wextra -Werror gnl-bonus-main.c src/get_next_line_bonus.c src/get_next_line_utils_bonus.c -o main.out
-# 
-# # Check if gnl-bonus-main compilation was successful
-# if [ $? -eq 0 ]; then
-    # echo -e "\n${GREEN}Running gnl-bonus-main.c function...${NO_COLOR}"
-    # ./main.out
-# else
-    # echo -e "${NO_COLOR}Compilation of gnl-bonus-main.c failed.${NO_COLOR}"
-    # exit 1
-# fi
+echo -e "${GREEN}Running Valgrind tests...${NO_COLOR}"
+make leakfull && \
+
+echo -e "\n${GREEN}Compiling the ${PURPLE}bonus ${GREEN}test program with ${YELLOW}BUFFER_SIZE = 1000000${NO_COLOR}"
+make clean && \
+make BUFFER_SIZE=1000000 && \
+
+echo -e "${GREEN}Running Valgrind tests...${NO_COLOR}"
+make leakfull && \
 
 # echo -e "\n${GREEN}Running Francinette tests...${NO_COLOR}"
 # cd src && \

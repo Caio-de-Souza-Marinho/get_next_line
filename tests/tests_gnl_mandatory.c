@@ -50,7 +50,7 @@ MU_TEST(test_gnl_mandatory_empty_file)
 	close(fd);
 }
 
-MU_TEST(test_gnl_mandatory_single_line_no_newline)
+MU_TEST(test_gnl_mandatory_single_line_no_newline_file)
 {
 	// ARRANGE
 	int	fd = open("test_files/single_line_no_newline.txt", O_RDONLY);
@@ -86,6 +86,7 @@ MU_TEST(test_gnl_mandatory_large_file)
 	for (int i = 0; i < 100; i++)
 	{
 		char	*actual_result = get_next_line(fd);
+
 		// ASSERT
 		mu_assert_string_eq(expected_result, actual_result);
 		free(actual_result);
@@ -94,12 +95,56 @@ MU_TEST(test_gnl_mandatory_large_file)
 	close(fd);
 }
 
+MU_TEST(test_gnl_mandatory_multiple_newlines_file)
+{
+	// ARRANGE
+	int	fd = open("test_files/multiple_newlines.txt", O_RDONLY);
+	mu_check(fd != -1);
+
+	const char	*expected_result = "\n";
+
+	// ACT
+	for (int i = 0; i < 5; i++)
+	{
+		char	*actual_result = get_next_line(fd);
+
+		// ASSERT
+		mu_assert_string_eq(expected_result, actual_result);
+		free(actual_result);
+	}
+
+	// Verify that the next call returns NULL (end of file)
+	char	*actual_result = get_next_line(fd);
+	mu_assert_string_eq(actual_result, NULL);
+
+	// CLEANUP
+	free(actual_result);
+	close(fd);
+}
+
+MU_TEST(test_gnl_mandatory_invalid_fd)
+{
+	// ARRANGE
+	int	invalid_fd = -1;
+
+	// ACT
+	char	*actual_result = get_next_line(invalid_fd);
+
+	// ASSERT
+	mu_assert_string_eq(actual_result, NULL);
+
+	// CLEANUP
+	free(actual_result);
+}
+
 MU_TEST_SUITE(get_next_line_test_suite)
 {
 	MU_RUN_TEST(test_gnl_mandatory_normal_file);
 	MU_RUN_TEST(test_gnl_mandatory_empty_file);
-	MU_RUN_TEST(test_gnl_mandatory_single_line_no_newline);
+	MU_RUN_TEST(test_gnl_mandatory_single_line_no_newline_file);
 	MU_RUN_TEST(test_gnl_mandatory_large_file);
+	MU_RUN_TEST(test_gnl_mandatory_multiple_newlines_file);
+	MU_RUN_TEST(test_gnl_mandatory_invalid_fd);
 }
 
 int	main(void)
