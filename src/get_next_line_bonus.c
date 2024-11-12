@@ -19,14 +19,11 @@ void	clean_list(t_list **list);
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list[4096];
+	static t_list	*list[1024];
 	char			*next_line;
 
-	if (fd < 0 || fd > 4096 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
-	{
-		dealloc(&list[fd], NULL, NULL);
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
 	create_list(list, fd);
 	if (list[fd] == NULL)
 	{
@@ -54,7 +51,13 @@ void	create_list(t_list **list, int fd)
 		if (buf == NULL)
 			return ;
 		char_read = read(fd, buf, BUFFER_SIZE);
-		if (!char_read)
+		if (char_read == -1)
+		{
+			free(buf);
+			dealloc(&list[fd], NULL, NULL);
+			return ;
+		}
+		if (char_read == 0)
 		{
 			free(buf);
 			return ;
