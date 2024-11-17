@@ -12,7 +12,7 @@
 
 #include "get_next_line_bonus.h"
 
-int	found_newline(t_gnl_list *list)
+int	found_newline(t_listg *list)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int	found_newline(t_gnl_list *list)
 	return (0);
 }
 
-t_gnl_list	*find_last_node(t_gnl_list *list)
+t_listg	*find_last_node(t_listg *list)
 {
 	if (list == NULL)
 		return (NULL);
@@ -41,7 +41,7 @@ t_gnl_list	*find_last_node(t_gnl_list *list)
 	return (list);
 }
 
-void	copy_str(t_gnl_list *list, char *str)
+void	copy_str(t_listg *list, char *str)
 {
 	int	i;
 	int	k;
@@ -67,7 +67,7 @@ void	copy_str(t_gnl_list *list, char *str)
 	str[k] = '\0';
 }
 
-int	len_until_newline(t_gnl_list *list)
+int	len_until_newline(t_listg *list)
 {
 	int	i;
 	int	len;
@@ -93,9 +93,9 @@ int	len_until_newline(t_gnl_list *list)
 	return (len);
 }
 
-void	dealloc(t_gnl_list **list, t_gnl_list *clean_node, char *buf)
+void	dealloc(t_listg **list, t_listg *clean_node, char *buf)
 {
-	t_gnl_list	*tmp;
+	t_listg	*tmp;
 
 	while (*list)
 	{
