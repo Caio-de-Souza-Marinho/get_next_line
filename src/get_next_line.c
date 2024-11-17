@@ -12,15 +12,15 @@
 
 #include "get_next_line.h"
 
-void	create_list(t_list **list, int fd);
-void	append(t_list **list, char *buf);
-char	*set_line(t_list *list);
-void	clean_list(t_list **list);
+void	create_list(t_gnl_list **list, int fd);
+void	append(t_gnl_list **list, char *buf);
+char	*set_line(t_gnl_list *list);
+void	clean_list(t_gnl_list **list);
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list = NULL;
-	char			*next_line;
+	static t_gnl_list	*list = NULL;
+	char				*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -39,7 +39,7 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-void	create_list(t_list **list, int fd)
+void	create_list(t_gnl_list **list, int fd)
 {
 	int		char_read;	
 	char	*buf;
@@ -66,13 +66,13 @@ void	create_list(t_list **list, int fd)
 	}
 }
 
-void	append(t_list **list, char *buf)
+void	append(t_gnl_list **list, char *buf)
 {
-	t_list	*new_node;
-	t_list	*last_node;
+	t_gnl_list	*new_node;
+	t_gnl_list	*last_node;
 
 	last_node = find_last_node(*list);
-	new_node = malloc(sizeof(t_list));
+	new_node = malloc(sizeof(t_gnl_list));
 	if (new_node == NULL)
 		return ;
 	if (last_node == NULL)
@@ -83,7 +83,7 @@ void	append(t_list **list, char *buf)
 	new_node->next = NULL;
 }
 
-char	*set_line(t_list *list)
+char	*set_line(t_gnl_list *list)
 {
 	int		str_len;
 	char	*next_str;
@@ -98,18 +98,18 @@ char	*set_line(t_list *list)
 	return (next_str);
 }
 
-void	clean_list(t_list **list)
+void	clean_list(t_gnl_list **list)
 {
-	t_list	*last_node;
-	t_list	*clean_node;
-	int		i;
-	int		k;
-	char	*buf;
+	t_gnl_list	*last_node;
+	t_gnl_list	*clean_node;
+	int			i;
+	int			k;
+	char		*buf;
 
 	if (list == NULL)
 		return ;
 	buf = malloc(BUFFER_SIZE + 1);
-	clean_node = malloc(sizeof(t_list));
+	clean_node = malloc(sizeof(t_gnl_list));
 	if (buf == NULL || clean_node == NULL)
 		return ;
 	last_node = find_last_node(*list);
