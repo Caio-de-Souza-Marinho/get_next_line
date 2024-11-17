@@ -53,8 +53,8 @@ make bonus BUFFER_SIZE=1000000 && \
 echo -e "${GREEN}Running Valgrind tests...${NO_COLOR}"
 make leakfullbonus && \
 
-# echo -e "\n${GREEN}Running Francinette tests...${NO_COLOR}"
-# cd ../src && \
-# ~/francinette/tester.sh && \
+echo -e "\n${GREEN}Running Francinette tests...${NO_COLOR}"
+cd ../src && \
+~/francinette/tester.sh && \
 
 echo -e "\n${GREEN}All tasks completed successfully!${NO_COLOR}"

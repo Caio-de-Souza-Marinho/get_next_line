@@ -12,14 +12,14 @@
 
 #include "get_next_line.h"
 
-void	create_list(t_list **list, int fd);
-void	append(t_list **list, char *buf);
-char	*set_line(t_list *list);
-void	clean_list(t_list **list);
+void	create_list(t_listg **list, int fd);
+void	append(t_listg **list, char *buf);
+char	*set_line(t_listg *list);
+void	clean_list(t_listg **list);
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list = NULL;
+	static t_listg	*list = NULL;
 	char			*next_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -39,7 +39,7 @@ char	*get_next_line(int fd)
 	return (next_line);
 }
 
-void	create_list(t_list **list, int fd)
+void	create_list(t_listg **list, int fd)
 {
 	int		char_read;	
 	char	*buf;
@@ -66,13 +66,13 @@ void	create_list(t_list **list, int fd)
 	}
 }
 
-void	append(t_list **list, char *buf)
+void	append(t_listg **list, char *buf)
 {
-	t_list	*new_node;
-	t_list	*last_node;
+	t_listg	*new_node;
+	t_listg	*last_node;
 
 	last_node = find_last_node(*list);
-	new_node = malloc(sizeof(t_list));
+	new_node = malloc(sizeof(t_listg));
 	if (new_node == NULL)
 		return ;
 	if (last_node == NULL)
@@ -83,7 +83,7 @@ void	append(t_list **list, char *buf)
 	new_node->next = NULL;
 }
 
-char	*set_line(t_list *list)
+char	*set_line(t_listg *list)
 {
 	int		str_len;
 	char	*next_str;
@@ -98,10 +98,10 @@ char	*set_line(t_list *list)
 	return (next_str);
 }
 
-void	clean_list(t_list **list)
+void	clean_list(t_listg **list)
 {
-	t_list	*last_node;
-	t_list	*clean_node;
+	t_listg	*last_node;
+	t_listg	*clean_node;
 	int		i;
 	int		k;
 	char	*buf;
@@ -109,7 +109,7 @@ void	clean_list(t_list **list)
 	if (list == NULL)
 		return ;
 	buf = malloc(BUFFER_SIZE + 1);
-	clean_node = malloc(sizeof(t_list));
+	clean_node = malloc(sizeof(t_listg));
 	if (buf == NULL || clean_node == NULL)
 		return ;
 	last_node = find_last_node(*list);
