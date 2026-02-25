@@ -1,27 +1,18 @@
 # get_next_line
 
-*This project has been created as part of the 42 curriculum by
-caide-so.*
+*This project has been created as part of the 42 curriculum by caide-so.*
 
 ## Description
 
-**get_next_line** is a foundational systems programming project at 42
-School focused on file descriptors, static storage duration, and
-low-level input handling in C.
+**get_next_line** is a foundational systems programming project at 42 School focused on file descriptors, static storage duration, and low-level input handling in C.
 
-The objective is to implement a function:
+The objective is to implement a function that reads from a file descriptor and returns one line per call, including the terminating newline (`\n`) when present:
 
 ``` c
 char *get_next_line(int fd);
 ```
 
-that reads from a file descriptor and returns one line per call,
-including the terminating newline (`\n`) when present.
-
-Rather than loading an entire file into memory, this project enforces
-incremental reading using `read()`, managing partial buffers, and
-preserving state between function calls through the use of a static
-variable.
+Rather than loading an entire file into memory, this project enforces incremental reading using `read()`, managing partial buffers, and preserving state between function calls through the use of a static variable.
 
 This project reinforces core C concepts:
 
@@ -34,34 +25,16 @@ This project reinforces core C concepts:
 
 It also requires strict compliance with the 42 Norm.
 
-------------------------------------------------------------------------
+### Why This Project Matters
 
-## Why This Project Matters
+- **Stateful Function Design**: You learn how to design a function that maintains internal state across multiple calls without using global variables.
+- **Low-Level I/O Mastery**: Working directly with `read()` builds understanding of how Unix-like systems handle file input.
+- **Memory Discipline**: Every allocation must be tracked and freed properly. Memory leaks or undefined behavior result in failure.
+- **Algorithmic Thinking**: The challenge is not reading a file, it is reading just enough to return exactly one line at a time.
 
-### Stateful Function Design
+This project marks the transition from simple procedural programming to controlled state management and system-level thinking.
 
-You learn how to design a function that maintains internal state across
-multiple calls without using global variables.
-
-### Low-Level I/O Mastery
-
-Working directly with `read()` builds understanding of how Unix-like
-systems handle file input.
-
-### Memory Discipline
-
-Every allocation must be tracked and freed properly. Memory leaks or
-undefined behavior result in failure.
-
-### Algorithmic Thinking
-
-The challenge is not reading a file --- it is reading just enough to
-return exactly one line at a time.
-
-This project marks the transition from simple procedural programming to
-controlled state management and system-level thinking.
-
-------------------------------------------------------------------------
+---
 
 ## Project Structure
 
@@ -98,8 +71,7 @@ Example:
 cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c
 ```
 
-The implementation must behave correctly for any valid `BUFFER_SIZE`,
-including extreme values such as:
+The implementation must behave correctly for any valid `BUFFER_SIZE`, including extreme values such as:
 
 -   1
 -   42
@@ -112,8 +84,7 @@ including extreme values such as:
 
 ### Core Strategy
 
-The function reads chunks of size `BUFFER_SIZE` from the file descriptor
-using `read()` and accumulates the data inside a static storage buffer.
+The function reads chunks of size `BUFFER_SIZE` from the file descriptor using `read()` and accumulates the data inside a static storage buffer.
 
 The process follows these steps:
 
@@ -129,8 +100,7 @@ The process follows these steps:
 
 A static variable retains its value between function calls.
 
-Without it, each invocation would lose previously read but unreturned
-data, making it impossible to properly return one line at a time.
+Without it, each invocation would lose previously read but unreturned data, making it impossible to properly return one line at a time.
 
 The static storage acts as a persistent buffer that:
 
@@ -145,8 +115,7 @@ The static storage acts as a persistent buffer that:
 -   Remaining content → preserved in static storage
 -   Freed appropriately on EOF or error
 
-The function never reads the entire file at once. It reads only as much
-as necessary to produce the next line.
+The function never reads the entire file at once. It reads only as much as necessary to produce the next line.
 
 ------------------------------------------------------------------------
 
@@ -186,17 +155,7 @@ Edge cases tested:
 -   Pipes and redirected input
 
 ------------------------------------------------------------------------
-
-## Compilation
-
-Using Makefile:
-
-``` bash
-make
-make clean
-make fclean
-make re
-```
+## Instructions
 
 Manual compilation:
 
@@ -213,39 +172,30 @@ The function exhibits undefined behavior if:
 -   The file is modified between calls while reading is incomplete
 -   A binary file is read without proper handling
 
-------------------------------------------------------------------------
+---
 
 ## Resources
 
 ### References
 
--   `man 2 read`
--   Static storage duration in C
--   Unix file descriptors
--   Memory management best practices
--   42 Norm documentation
+- [POSIX `read()` Specification](https://pubs.opengroup.org/onlinepubs/9699919799/functions/read.html)
+- [`read(2)` Linux Manual Page](https://man7.org/linux/man-pages/man2/read.2.html)
+- [File Descriptors in Unix](https://man7.org/linux/man-pages/man2/open.2.html)
+- [Static Storage Duration in C (cppreference)](https://en.cppreference.com/w/c/language/static_storage_duration)
+- [C Memory Management Overview](https://en.cppreference.com/w/c/memory)
+- [Understanding Buffering in C](https://www.gnu.org/software/libc/manual/html_node/Streams-and-I_002fO.html)
+- [Beej’s Guide to C Programming](https://beej.us/guide/bgc/)
+- [The Open Group Base Specifications (POSIX)](https://pubs.opengroup.org/onlinepubs/9699919799/)
+- [42 Norminette Documentation](https://github.com/42School/norminette)
 
 ### AI Usage
 
-AI tools were not used in the development of this project. All
-implementation and debugging were performed manually to ensure full
-conceptual understanding of static storage, buffer management, and
-low-level I/O.
+AI tools were not used in the development of this project. All implementation and debugging were performed manually to ensure full conceptual understanding of static storage, buffer management, and low-level I/O.
 
-This approach aligns with the 42 philosophy of building foundational
-reasoning skills through independent problem-solving and peer learning.
+This approach aligns with the 42 philosophy of building foundational reasoning skills through independent problem-solving and peer learning.
 
-------------------------------------------------------------------------
-
-## Compiler Flags
-
-The project is compiled with:
-
-    -Wall -Wextra -Werror
-
-------------------------------------------------------------------------
+---
 
 ## Author
 
-**caide-so**\
-42 São Paulo
+**caide-so** — caide-so@student.42sp.org.br
